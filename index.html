@@ -3,16 +3,52 @@ layout: default
 ---
 
 <div class="posts">
+
+  <!-- Jekyll Posts -->
+  <!-- <h2>Latest Blog Posts (Jekyll)</h2> -->
   {% for post in site.posts %}
-    <article class="post">
-
-      <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
-
-      <div class="entry">
-        {{ post.excerpt }}
-      </div>
-
-      <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
-    </article>
+    {% if forloop.first %}
+      <!-- Show FULL content of the first post -->
+      <article class="post">
+        <h2>{{ post.title }}</h2>
+        <div class="entry">
+          {{ post.content }}
+        </div>
+      </article>
+    {% else %}
+      <!-- Other posts hidden by default -->
+      <article class="post more-posts" style="display: none;">
+        <h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
+        <div class="entry">{{ post.excerpt }}</div>
+        <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
+      </article>
+    {% endif %}
   {% endfor %}
+
+  <button id="showMoreBtn">Read MORE</button>
+
+  <!-- Medium Posts -->
+  <h2>My Medium Blogs</h2>
+  <ul class="medium-posts">
+    <li>
+      <a href="https://medium.com/@sueye0425/the-kind-of-prompt-engineering-people-might-easily-forget-but-really-shouldnt-c995b91cd53e" target="_blank">
+        The Kind of Prompt Engineering People Might Easily Forget—But Really Shouldn't
+      </a>
+    </li>
+    <li>
+      <a href="https://medium.com/@sueye0425/fetch-youtube-transcripts-for-your-first-llm-project-fa78b8ad8dec" target="_blank">
+        Fetch YouTube Transcripts for Your First LLM Project
+      </a>
+    </li>
+    <li>
+      <a href="https://medium.com/@sueye0425" target="_blank"><strong>→ View all on Medium</strong></a>
+    </li>
+  </ul>
 </div>
+
+<script>
+  document.getElementById('showMoreBtn').addEventListener('click', function () {
+    document.querySelectorAll('.more-posts').forEach(el => el.style.display = 'block');
+    this.style.display = 'none';
+  });
+</script>
